@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: otlp-example
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  otlp:
+    metrics:
+      export:
+        url: http://192.168.3.79:4318/v1/metrics
+        step: 10s
+    tracing:
+      endpoint: http://192.168.3.79:4318/v1/traces
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles:
+        do.sleep.method.timed: 0.99,0.95,0.9,0.7,0.5
+    tags:
+      application: ${spring.application.name}
+#    tags:
+#      service: spring
+
